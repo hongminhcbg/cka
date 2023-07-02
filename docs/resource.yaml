@@ -1,0 +1,13 @@
+# Resource units in k8s
+# 1 <=> 1 physical CPU or 1 virtual core
+# 0.1 <=> 0.1CPU
+# 100m <=> 100 mili CPU <=> 1 CPU
+oneCPU:
+- one AWS vCPU
+- one GCP Core
+- one Azure vCore
+- one Hyperthread on a bare-metal Intel processor with Hyperthreading
+memoryUnit:
+- request and limit mememory measure in bytes
+- example 400Mi <=> 400 Megabytes
+

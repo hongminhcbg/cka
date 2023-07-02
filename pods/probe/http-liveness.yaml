@@ -1,0 +1,19 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  labels:
+    test: liveness
+  name: liveness-http
+spec:
+  containers:
+    - name: liveness
+      image: hongminhcbg/base-image:v0.0.2
+      args:
+      - /app/server
+      - liveness
+      livenessProbe:
+        httpGet:
+          path: /healthz
+          port: 8080
+        initialDelaySeconds: 3
+        periodSeconds: 10
