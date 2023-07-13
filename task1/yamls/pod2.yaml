@@ -1,0 +1,18 @@
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pod2
+  name: pod2
+spec:
+  containers:
+  - name: pod2
+    args:
+    - /app/server
+    - liveness_dep
+    image: hongminhcbg/base-image:v0.0.3
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: OnFailure
+status: {}
