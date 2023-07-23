@@ -1,0 +1,21 @@
+# create a pod of image httpd:2.4.41-alpine in namespace default, 
+# the pod should be name pod1
+# container should be name pod1-container
+# this pod should only be schedule on master node
+# k get pods -owide
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: pod1
+  name: pod1
+spec:
+  nodeName: minikube # get master node name with $k get nodes
+  containers:
+  - image: httpd:2.4.41-alpine
+    name: pod1-container
+    resources: {}
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+status: {}
