@@ -1,0 +1,31 @@
+#ref https://kubernetes.io/docs/tasks/configure-pod-container/configure-volume-storage/
+# 1. k appy to create pod
+# 2. k exec -it redis -- redis-cli
+# 3. set mint 1234 
+# 4. exec into pod and run 'apt-get update & apt-get install procps'
+# 5. run 'ps aux' to get pid
+# 6. create test file 'echo hello > /data/redis/log.txt'
+# 7. kill pid
+# 8. after pod restart, re-execute and we see log.txt still here
+# volume redis-storage only for pod redis, after delete pod and re-create, u won't see log.txt 
+apiVersion: v1
+kind: Pod
+metadata:
+  creationTimestamp: null
+  labels:
+    run: redis
+  name: redis
+spec:
+  containers:
+  - image: redis
+    name: redis
+    resources: {}
+    volumeMounts:
+    - name: redis-storage
+      mountPath: /data/redis
+  dnsPolicy: ClusterFirst
+  restartPolicy: Always
+  volumes:
+  - name: redis-storage
+    emptyDir: {}
+status: {}
