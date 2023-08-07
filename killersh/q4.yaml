@@ -1,0 +1,4 @@
+# create a pod name 'ready-if-svc-ready' of image 'nginx-1.16.1-alpine'
+# config LinenessProbe return true
+# config ReadinessProbe 'wget -T2 -0- http://service-am-i-ready:80' 
+#

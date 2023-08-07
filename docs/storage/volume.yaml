@@ -1,0 +1,9 @@
+# ephemeral volume type have a lifetime of a pod,
+# one problem occurs when a pod crashs or is stopped
+# during a crash, k8s restart pod with a clean state, then ephemeral volume is distroyed
+#
+# persistant volume exist beyond the life time of pod
+# in one pod or deployment .spec.volumes
+# in one container spec.containers[*].volumeMounts
+# in one container spec.containers[*].volumeMounts[*].name is same .spec.volumes[*].name
+# in one container spec.containers[*].volumeMounts[*].mountPath is path in image 

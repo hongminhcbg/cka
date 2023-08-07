@@ -1,0 +1,10 @@
+# pvc is resource in the cluster 
+# it's life circle is independent of any invidual pod
+# can request specific size and access mode
+accessMode:
+  ReadWriteOnce: |  
+    read-write by single node
+    multi pod can access the vol when pods are running on the same node
+  ReadOnlyMany: read only by multi node 
+  ReadWriteMany: read write many node
+
