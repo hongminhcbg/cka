@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: pvc-mint  
+  labels:
+    type: local
+spec:
+  accessModes:
+    - ReadWriteOnce
+  selector:
+    matchLabels:
+      type: local
+  resources:
+    claims:
+    limits:
+      storage: 100M
+    requests:
+      storage: 20M
+  volumeName: pv-mint
+  storageClassName: manual
