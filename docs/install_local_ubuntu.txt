@@ -1,0 +1,3 @@
+1. Install CRI https://github.com/Mirantis/cri-dockerd
+2. follow docs https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+3. issue https://stackoverflow.com/a/72878730
