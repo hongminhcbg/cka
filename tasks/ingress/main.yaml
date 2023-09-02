@@ -1,0 +1,108 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: pod1
+  name: pod1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod1
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pod1
+    spec:
+      containers:
+      - image: curlimages/curl:8.2.1
+        name: curl
+        resources: {}
+        command:
+        - sleep
+        - '99999' # after pod start k exec -it -c curl pod1-7cf9576898-rdh72 -- curl http://nginx-svc.default.svc.cluster.local.
+status: {}
+---
+apiVersion: v1
+data:
+  index.html: |
+    <html> Hello world </html>
+kind: ConfigMap
+metadata:
+  creationTimestamp: null
+  name: cm-nginx
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  creationTimestamp: null
+  labels:
+    app: pod2
+  name: pod2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod2
+  strategy: {}
+  template:
+    metadata:
+      creationTimestamp: null
+      labels:
+        app: pod2
+    spec:
+      containers:
+      - image: nginx:1.25
+        name: nginx
+        ports:
+        - containerPort: 80
+        resources: {}
+        volumeMounts:
+          - name: indexhtml
+            mountPath: /usr/share/nginx/html/
+      volumes:
+      - name: indexhtml
+        configMap:
+          name: cm-nginx
+status: {}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  creationTimestamp: null
+  labels:
+    app: nginx-svc
+  name: nginx-svc
+spec:
+  ports:
+  - name: 80-80
+    port: 80
+    protocol: TCP
+    targetPort: 80
+  selector:
+    app: pod2
+  type: NodePort
+status:
+  loadBalancer: {}
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: minimal-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx-example
+  rules:
+  - http:
+      paths:
+      - path: /prefix
+        pathType: Prefix
+        backend:
+          service:
+            name: nginx-svc
+            port:
+              number: 80

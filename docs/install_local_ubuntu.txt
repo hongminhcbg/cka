@@ -1,3 +1,9 @@
 1. Install CRI https://github.com/Mirantis/cri-dockerd
 2. follow docs https://kubernetes.io/docs/setup/production-environment/tools/kubeadm/create-cluster-kubeadm/
+$ sudo kubeadm init --cri-socket=unix:///var/run/cri-dockerd.sock --pod-network-cidr=192.168.0.0/16
+
 3. issue https://stackoverflow.com/a/72878730
+4. install cni https://docs.tigera.io/calico/3.25/getting-started/kubernetes/quickstart
+5. taint node 
+
+$ kubectl taint nodes --all node-role.kubernetes.io/control-plane-
