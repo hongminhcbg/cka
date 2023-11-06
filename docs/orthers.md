@@ -18,3 +18,20 @@ Node affinity
     - operator [In, notIn, exists]
     - values
 
+Limit and request
+
+    - kube-scheduler schedule the best node to place the pods on
+    - when pod try to exceed the limit => OOM
+
+limit and request default behavior
+    
+   - no limit, no request => as many as CPU available 
+   - no request, limit => request = limit
+   - request, no limit => as many as CPU available
+
+Deamon Set 
+
+    the copy of pod always appear in new node
+    for logging and monitoring
+
+![x](./imgs/deamonset.jpeg?raw=true)
