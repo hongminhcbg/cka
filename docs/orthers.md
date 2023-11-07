@@ -35,3 +35,14 @@ Deamon Set
     for logging and monitoring
 
 ![x](./imgs/deamonset.jpeg?raw=true)
+
+Static pod
+    
+    (only pod) store in /etc/kubenetes/manifests
+    no kube-scheduler
+    no kube-api 
+    kubelet read the dir interval and create
+    read only with kubectl command
+
+
+![x](./imgs/static_pod.jpeg?raw=true)
