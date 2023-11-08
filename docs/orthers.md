@@ -46,3 +46,15 @@ Static pod
 
 
 ![x](./imgs/static_pod.jpeg?raw=true)
+
+
+realcmd = entrypoint + command
+command can be overwrited
+example 
+    
+    // dockerfile 
+    ENTRYPOINT ["sleep"]
+    CMD ["10"] // => sleep 10 when startup
+    // if u run 'docker run ubuntu 50' the real command is sleep 50 on startup 
+
+
