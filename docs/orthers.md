@@ -57,4 +57,32 @@ example
     CMD ["10"] // => sleep 10 when startup
     // if u run 'docker run ubuntu 50' the real command is sleep 50 on startup 
 
+Troubleshooting
 
+I. Worker node fail
+
+    $ k get nodes
+    $ sudo journalctl -u kubelet -f # get log kubelet
+
+Importrant:
+
+    - backup etcd
+    - volume
+    - create pv, pvc
+    - create user with per
+    - dns lookup    
+
+$ k config get-contexts --no-headers=true -o=name
+$ k config current-context
+$ cat ~/.kube/config | grep current | awk '{print $2}' # get current context without kubeclt
+
+Pod.spec.nodeName: 'xxx' # skip schedulers, orverwrite NodeAffinity
+
+$ k scale --replicas=2 deployment web #scale deployment
+---
+sh -c can run with list command ...
+      exec:
+        command:
+        - sh
+        - -c
+        - 'wget -T2 -O- http://service-am-i-ready:80'
