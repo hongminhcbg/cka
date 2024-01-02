@@ -38,7 +38,7 @@ VIII. pods
 
 
 
-K8s only workwith docker, don't support any container solution
+K8s only work with docker, don't support any container solution.
 CRI (container runtime interface): standard for interface for vendors, like [containerd](https://github.com/containerd/containerd), [rkt](https://github.com/rkt/rkt)
 
 k run ... #deploy a pod
