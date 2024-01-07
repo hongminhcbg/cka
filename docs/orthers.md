@@ -72,6 +72,10 @@ Importrant:
     - create user with per, SA, role, role  blinding
     - dns lookup
     - node tolerations
+    - pod affinity https://kubernetes.io/docs/concepts/scheduling-eviction/assign-pod-node/#an-example-of-a-pod-that-uses-pod-affinity
+    - update kube version
+    - network policy
+    
 
 
 $ k config get-contexts --no-headers=true -o=name
@@ -131,3 +135,52 @@ spec:
         operator: Exists
         effect: NoSchedule
       containers:
+---
+share same volume and Expose Pod Information to Containers
+spec:
+  containers:
+  - name: c1
+  ...
+  volumeMounts:
+  - name: date
+    mountPath: /root
+  - name: c2
+  env:
+  - name: XXX
+    valueFrom:
+      fieldRef:
+        fieldPath: spec.nodeName
+  ...
+  volumeMounts:
+  - name: date
+    mountPath: /root
+  volumes:
+  - name: date
+    hostPath:
+      path: /ddd
+---
+get CIDR
+$ cat /etc/kubernetes/manifests/kube-apiserver.yaml | grep range
+  --service-cluster-ip-range=[ANS]
+
+cni plugin:
+$ cat /ect/cni/net.d/xxx.configlist
+---
+$ k get events -A 
+using crictl to interactive with cri
+$ crictl -r=unix:///var/run/cri-dockerd.sock ps # list containers
+$ crictl -r=unix:///var/run/cri-dockerd.sock rmp [POD_NAME] #remove a pod
+---
+$ k api-resources --namespaced -o name # get all names
+# In a namespace
+$ kubectl api-resources --namespaced=true
+
+# Not in a namespace
+$ kubectl api-resources --namespaced=false
+---
+    - name: APP_PASS
+      valueFrom:
+        secretKeyRef:
+          name: secret2
+          key: pass
+---
